@@ -198,6 +198,10 @@ rather than binding lists."
   ((assign *cd-form* '(person (name (ash)))
            *part-of-speech* 'noun-phrase)))
 
+(defword dan
+  ((assign *cd-form* '(person (name (dan)))
+           *part-of-speech* 'noun-phrase)))
+
 (defword went
   ((assign *part-of-speech* 'verb
            *cd-form* '(ptrans (actor  ?go-var1)
@@ -238,10 +242,37 @@ rather than binding lists."
 
 (defword closed
   ((assign *part-of-speech* 'verb
-           *cd-form* '(atrans (actor  ?get-var3)
+           *cd-form* '(propel (actor  ?get-var1)
                               (object ?get-var2)
-                              (to     ?get-var2)
-                              (from   ?get-var1))
+                              (to     ?get-var3)
+                              (from   ?get-var3))
+           get-var1 *subject*
+           get-var2 nil
+           get-var3 nil)
+   (next-packet
+    ((test (eq *part-of-speech* 'noun-phrase))
+     (assign get-var2 *cd-form*)))))
+
+
+(defword ryaned
+  ((assign *part-of-speech* 'verb
+           *cd-form* '(do (actor  ?get-var1)
+                              (object ?get-var2)
+                              (to     ?get-var3)
+                              (from   ?get-var3))
+           get-var1 *subject*
+           get-var2 nil
+           get-var3 nil)
+   (next-packet
+    ((test (eq *part-of-speech* 'noun-phrase))
+     (assign get-var2 *cd-form*)))))
+
+(defword danned
+  ((assign *part-of-speech* 'verb
+           *cd-form* '(do (actor  ?get-var1)
+                              (object ?get-var2)
+                              (to     ?get-var3)
+                              (from   ?get-var3))
            get-var1 *subject*
            get-var2 nil
            get-var3 nil)
@@ -274,6 +305,14 @@ rather than binding lists."
 (defword door
   ((assign *part-of-speech* 'noun
            *cd-form* '(door))))
+
+(defword book
+  ((assign *part-of-speech* 'noun
+           *cd-form* '(book))))
+
+(defword computer
+  ((assign *part-of-speech* 'noun
+           *cd-form* '(computer))))
 
 (defword *start*
   ((assign *part-of-speech* nil
